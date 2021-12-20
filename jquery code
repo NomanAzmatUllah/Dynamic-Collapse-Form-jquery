@@ -1,0 +1,214 @@
+   <div class="accordin" id="accordion" style="display: none;">
+                                    </div>
+  
+  
+  <script>
+        $(document).ready(function () {
+            $("#cphBody_PartiesDiv").css("border", "none");          
+
+
+            //Get Parties Name  and bind It 
+            $("#parties").click(function () {
+                blockUI();
+                $("#accordion").empty();
+                $("#cphBody_CardObtDiv").css("border", "none");
+                $("#cphBody_NoCardDiv").css("border", "none");
+                $("#cphBody_IndividualDiv").css("border", "none");
+                $("#cphBody_NoVoiceDiv").css("border", "none");
+                $("#cphBody_NoDegreeDiv").css("border", "none");
+                var jamat = $("#cphBody_txtJamaat").val();
+                $("#cphBody_gvCardDetail").css("display", "none");
+                $("#cphBody_PartiesDiv").css("border", "2px solid #ffc107");
+                $("#accordion").css("display", "block");
+                $.ajax({
+                    type: "POST",
+                    url: "ErDashboard.aspx/GetPartiesName",
+                    data: "{Jamat: '" + jamat + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        GetRecords(res);
+                         $.unblockUI();
+                    }
+                });
+            });
+
+            //Click on Table Row Click 
+            $("#partiesClck").click(function () {
+                blockUI();
+                $("#accordion").empty();
+                $("#cphBody_CardObtDiv").css("border", "none");
+                $("#cphBody_NoCardDiv").css("border", "none");
+                $("#cphBody_IndividualDiv").css("border", "none");
+                $("#cphBody_NoVoiceDiv").css("border", "none");
+                $("#cphBody_NoDegreeDiv").css("border", "none");
+                var jamat = $("#cphBody_txtJamaat").val();
+                $("#cphBody_gvCardDetail").css("display", "none");
+                $("#cphBody_PartiesDiv").css("border", "2px solid #ffc107");
+                $("#accordion").css("display", "block");
+                $.ajax({
+                    type: "POST",
+                    url: "ErDashboard.aspx/GetPartiesName",
+                    data: "{Jamat: '" + jamat + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        GetRecords(res);
+                        $.unblockUI();
+                    }
+                });
+            });
+
+            //Get Parties Records
+            $("#accordion").on('click', 'button', function () {
+                var value = $(this).html();
+                var jamat = $("#cphBody_txtJamaat").val();               
+                $.ajax({
+                    type: "POST",
+                    url: "ERDashboard.aspx/PartyWiseRecords",
+                    data: "{Jamat: '" + jamat + "' , PartyName: '" + value + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        var Result = $.parseJSON(res.d);
+                        var PartyWirseName = Result["Table"];
+                        value = value.replace(/[^a-z0-9\s]/gi, '').replace(/[- )(]/g, '');;
+                        debugger;
+                        $("#"+ value + " tbody").empty();
+                        $.each(PartyWirseName, function (i, jsonData) {
+                            $(`#${value} tbody`).append("<tr><td>" + jsonData.ITSId + "</td><td>" + jsonData.FullName + "</td><td>" + jsonData.PartyName + "</td><td>" + jsonData.PMPositionName + "</td><td>" + jsonData.MobileNo + "</td><td>" + jsonData.Jamiat + "</td><td>" + jsonData.Jamaat + "</td><td>" + jsonData.QuranDegree + "</td><td>" + jsonData.VoiceUpload + "</td><td>" + jsonData.CardObtained + "</td><td>" + jsonData.Grade + "</td><td>" + jsonData.PartyType + "</td></tr>");
+                        });
+
+                    }
+                });
+             
+            });
+
+        });
+
+        var parameter = Sys.WebForms.PageRequestManager.getInstance();
+        parameter.add_endRequest(function () {
+            //Parties Names
+            $("#parties").click(function () {
+                blockUI();
+                $("#accordion").empty();
+                $("#cphBody_CardObtDiv").css("border", "none");
+                $("#cphBody_NoCardDiv").css("border", "none");
+                $("#cphBody_IndividualDiv").css("border", "none");
+                $("#cphBody_NoVoiceDiv").css("border", "none");
+                $("#cphBody_NoDegreeDiv").css("border", "none");
+                var jamat = $("#cphBody_txtJamaat").val();
+                $("#cphBody_gvCardDetail").css("display", "none");
+                $("#cphBody_PartiesDiv").css("border", "2px solid #ffc107");
+                $("#accordion").css("display", "block");
+                $.ajax({
+                    type: "POST",
+                    url: "ErDashboard.aspx/GetPartiesName",
+                    data: "{Jamat: '" + jamat + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        GetRecords(res);
+                        $.unblockUI();
+                    }
+                });
+            });
+
+            //Click on Table Row Click 
+            $("#partiesClck").click(function () {
+                blockUI();
+                $("#accordion").empty();
+                $("#cphBody_CardObtDiv").css("border", "none");
+                $("#cphBody_NoCardDiv").css("border", "none");
+                $("#cphBody_IndividualDiv").css("border", "none");
+                $("#cphBody_NoVoiceDiv").css("border", "none");
+                $("#cphBody_NoDegreeDiv").css("border", "none");
+                var jamat = $("#cphBody_txtJamaat").val();
+                $("#cphBody_gvCardDetail").css("display", "none");
+                $("#cphBody_PartiesDiv").css("border", "2px solid #ffc107");
+                $("#accordion").css("display", "block");
+                $.ajax({
+                    type: "POST",
+                    url: "ErDashboard.aspx/GetPartiesName",
+                    data: "{Jamat: '" + jamat + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        GetRecords(res);
+                        $.unblockUI();
+                    }
+                });
+            });
+
+            //Get Parties Records
+            $("#accordion").on('click', 'button', function () {
+                blockUI();
+                var value = $(this).html();
+                var jamat = $("#cphBody_txtJamaat").val();           
+                    $.ajax({
+                        type: "POST",
+                        url: "ERDashboard.aspx/PartyWiseRecords",
+                        data: "{Jamat: '" + jamat + "' , PartyName: '" + value + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (res) {
+                            var Result = $.parseJSON(res.d);
+                            var PartyWirseName = Result["Table"];
+                            value = value.replace(/[^a-z0-9\s]/gi, '').replace(/[- )(]/g, '');
+                            $("#" + value + " tbody").empty();
+                            $.each(PartyWirseName, function (i, jsonData) {
+                                $(`#${value} tbody`).append("<tr><td>" + jsonData.ITSId + "</td><td>" + jsonData.FullName + "</td><td>" + jsonData.PartyName + "</td><td>" + jsonData.PMPositionName + "</td><td>" + jsonData.MobileNo + "</td><td>" + jsonData.Jamiat + "</td><td>" + jsonData.Jamaat + "</td><td>" + jsonData.QuranDegree + "</td><td>" + jsonData.VoiceUpload + "</td><td>" + jsonData.CardObtained + "</td><td>" + jsonData.Grade + "</td><td>" + jsonData.PartyType + "</td></tr>");
+                            });
+                            $.unblockUI();
+                        }       
+                    });               
+              
+            });
+        });
+
+        function GetRecords(res) {
+            var trimPartyName = '';
+            var response = $.parseJSON(res.d);
+            var result = response["Table"];
+            $.each(result, function (i, data) {                
+                //trimPartyName = data.partyname.replace(/[- )(]/g, '');
+                trimPartyName = data.partyname.replace(/[^a-z0-9\s]/gi, '').replace(/[- )(]/g, '');
+
+                $("#accordion").append
+                    (`<div class="card">
+                           <div class ="card-header">
+                              <h5 class="mb-0">
+                                 <button class ="btn btn-link" type="button" data-toggle="collapse" data-target=#${trimPartyName}-1 aria-expanded="true" aria-controls=${trimPartyName}>${data.partyname}</button>
+                                        </h5>
+                                            </div>
+                  <div id=${trimPartyName}-1 class ="collapse" aria-labelledby=${trimPartyName} data-parent="#accordion">
+                     <div class="card-body">
+                         <table id=${trimPartyName} class ="table table-bordered">
+                            <thead>
+                            <tr>
+                            <th>ITSId</th>
+                            <th>Full Name</th>
+                            <th>Party Name</th>
+                            <th>Position</th>
+                            <th>Mobile No</th>
+                            <th>Jamiat</th>
+                            <th>Jamaat</th>
+                            <th>Quran Degree</th>
+                            <th>Voice</th>
+                            <th>Card Obt</th>
+                            <th>Grade</th>
+                            <th>Party Type</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                             </div>
+                                </div>
+                                </div>`);
+
+                trimPartyName = '';
+            });
+            $('html,body').animate({ scrollTop: $('.second').offset().top }, 'slow');
+        }
+
+    </script>
